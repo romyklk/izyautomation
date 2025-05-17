@@ -68,4 +68,58 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     });
+
+    // Animation des nombres dans la section résultats
+    document.addEventListener('DOMContentLoaded', function () {
+        const animateValue = (obj, start, end, duration) => {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                obj.innerHTML = Math.floor(progress * (end - start) + start) + '%';
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        };
+
+        const observerOptions = {
+            threshold: 0.5,
+            rootMargin: '0px'
+        };
+
+        const numberElements = document.querySelectorAll('.bento-card [style*="font-size"]');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const element = entry.target;
+                    const finalValue = parseInt(element.textContent);
+                    animateValue(element, 0, finalValue, 2000);
+                    observer.unobserve(element);
+                }
+            });
+        }, observerOptions);
+
+        numberElements.forEach(el => observer.observe(el));
+
+        // Animation 3D hover effect pour les cartes
+        const cards = document.querySelectorAll('.bento-card');
+        cards.forEach(card => {
+            card.addEventListener('mousemove', function (e) {
+                const rect = this.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                const xRotation = ((y - rect.height / 2) / rect.height) * 10;
+                const yRotation = ((x - rect.width / 2) / rect.width) * 10;
+
+                this.style.transform = `perspective(1000px) rotateX(${-xRotation}deg) rotateY(${yRotation}deg) scale3d(1.02, 1.02, 1.02)`;
+            });
+
+            card.addEventListener('mouseout', function () {
+                this.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+            });
+        });
+    });
 });
