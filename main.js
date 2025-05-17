@@ -122,4 +122,29 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         });
     });
+
+    // Gestion des onglets de démo
+    const demoTabs = document.querySelectorAll('.demo-tab');
+    const demoScreens = document.querySelectorAll('.demo-screen');
+
+    demoTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const targetTab = tab.dataset.tab;
+
+            // Activer l'onglet
+            demoTabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+
+            // Afficher le contenu correspondant
+            demoScreens.forEach(screen => {
+                if (screen.dataset.tab === targetTab) {
+                    screen.classList.add('active');
+                    // Ajouter une animation
+                    screen.style.animation = 'fadeIn 0.5s ease-out';
+                } else {
+                    screen.classList.remove('active');
+                }
+            });
+        });
+    });
 });
