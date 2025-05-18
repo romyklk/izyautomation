@@ -49,6 +49,8 @@ body {
     font-size: var(--body-size);
     background-color: #fff;
     overflow-x: hidden;
+    position: relative;
+    z-index: 1;
 }
 
 a {
@@ -65,6 +67,45 @@ a:hover {
     width: var(--container-width);
     margin-inline: auto;
     padding-inline: var(--container-padding);
+}
+
+/* Particles Background */
+#particles-js {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: var(--dark-color);
+    background: linear-gradient(135deg, rgba(79, 70, 229, 0.1) 0%, rgba(255, 87, 51, 0.1) 100%);
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* Animation gradient pour le fond */
+@keyframes gradientBG {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.hero {
+    position: relative;
+    background: linear-gradient(-45deg,
+            rgba(79, 70, 229, 0.15),
+            rgba(255, 87, 51, 0.15),
+            rgba(79, 70, 229, 0.15),
+            rgba(255, 87, 51, 0.15));
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
 }
 
 /* Header */
@@ -211,12 +252,37 @@ header.scroll-up {
 }
 
 .hero-buttons {
-    margin-top: 40px;
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+    justify-content: center;
 }
 
 .hero-buttons .btn {
-    margin: 0 10px;
-    padding: 12px 30px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    min-width: 200px;
+    max-width: 3000px;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+        width: auto;
+        max-width: 300px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .hero-buttons .btn {
+        width: 100%;
+        max-width: 100%;
+    }
 }
 
 /* Hero Stats */
@@ -748,7 +814,6 @@ footer {
 
 /* Utility Classes */
 .gradient-text {
-    background: var(--gradient);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
