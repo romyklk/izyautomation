@@ -835,3 +835,48 @@ footer {
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     will-change: transform, opacity;
 }
+
+/* Back to Top Button */
+.back-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background: var(--gradient);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    cursor: pointer;
+    text-decoration: none;
+    opacity: 0;
+    transform: translateY(100px);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+}
+
+.back-to-top.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.back-to-top:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.back-to-top svg {
+    width: 24px;
+    height: 24px;
+    stroke: white;
+}
+
+@media (max-width: 768px) {
+    .back-to-top {
+        bottom: 1rem;
+        right: 1rem;
+    }
+}

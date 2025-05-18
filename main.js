@@ -147,4 +147,25 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         });
     });
+
+    // Back to top button
+    const backToTop = document.querySelector('.back-to-top');
+
+    // Afficher/cacher le bouton en fonction du scroll
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 500) {
+            backToTop.classList.add('visible');
+        } else {
+            backToTop.classList.remove('visible');
+        }
+    });
+
+    // Scroll smooth vers le haut au clic
+    backToTop.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
 });
