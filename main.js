@@ -38,11 +38,13 @@ document.addEventListener('DOMContentLoaded', function () {
     // Animation pour le header au scroll
     const header = document.querySelector('header');
     let lastScrollTop = 0;
+    let lastScroll = 0;
 
-    window.addEventListener('scroll', function () {
-        let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    // Fonction de gestion du scroll du header
+    const handleHeaderScroll = () => {
+        const currentScroll = window.pageYOffset;
 
-        if (scrollTop > 100) {
+        if (currentScroll > 100) {
             header.style.boxShadow = '0 10px 20px rgba(0,0,0,0.1)';
             header.style.background = 'rgba(255,255,255,0.98)';
         } else {
@@ -50,8 +52,26 @@ document.addEventListener('DOMContentLoaded', function () {
             header.style.background = 'white';
         }
 
-        lastScrollTop = scrollTop;
-    });
+        if (currentScroll <= 0) {
+            header.classList.remove('scroll-up');
+            return;
+        }
+
+        if (currentScroll > lastScroll && !header.classList.contains('scroll-down')) {
+            // Scroll vers le bas
+            header.classList.remove('scroll-up');
+            header.classList.add('scroll-down');
+        } else if (currentScroll < lastScroll && header.classList.contains('scroll-down')) {
+            // Scroll vers le haut
+            header.classList.remove('scroll-down');
+            header.classList.add('scroll-up');
+        }
+
+        lastScroll = currentScroll;
+        lastScrollTop = currentScroll;
+    };
+
+    window.addEventListener('scroll', handleHeaderScroll);
 
     // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -167,5 +187,31 @@ document.addEventListener('DOMContentLoaded', function () {
             top: 0,
             behavior: 'smooth'
         });
+    });
+
+    // Menu hamburger
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+
+    hamburger?.addEventListener('click', () => {
+        const isExpanded = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', !isExpanded);
+        navLinks?.classList.toggle('active');
+    });
+
+    // Fermer le menu au clic sur un lien
+    navLinks?.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            hamburger?.setAttribute('aria-expanded', 'false');
+            navLinks?.classList.remove('active');
+        });
+    });
+
+    // Gestion du redimensionnement de la fenêtre
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 768) {
+            navLinks?.classList.remove('active');
+            hamburger?.setAttribute('aria-expanded', 'false');
+        }
     });
 });

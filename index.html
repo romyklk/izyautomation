@@ -21,15 +21,24 @@
                 <div class="logo">
                     <div class="logo-text">Izy<span>Automation</span></div>
                 </div>
-                <ul class="nav-links">
-                    <li><a href="#features">Fonctionnalités</a></li>
-                    <li><a href="#process">Processus</a></li>
-                    <li><a href="#results">Résultats</a></li>
-                    <li><a href="#resources">Ressources</a></li>
-                    <div class="auth-buttons" style="display: none;">
-                        <a href="#" class="auth-link">Connexion</a>
-                        <a href="#" class="btn btn-primary">S'inscrire</a>
-                    </div>
+
+                <button class="hamburger" aria-label="Menu" aria-expanded="false">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" />
+                    </svg>
+                </button>
+
+                <nav>
+                    <ul class="nav-links">
+                        <li><a href="#features">Fonctionnalités</a></li>
+                        <li><a href="#process">Processus</a></li>
+                        <li><a href="#results">Résultats</a></li>
+                        <li><a href="#resources">Ressources</a></li>
+                    </ul>
+                </nav>
+
+
             </div>
         </div>
     </header>
@@ -344,8 +353,7 @@
                 <h2>Ressources gratuites</h2>
                 <p>Commencez votre parcours d'apprentissage avec nos ressources en libre accès.</p>
             </div>
-            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 50px;"
-                data-aos="fade-up" data-aos-delay="200">
+            <div class="resources-grid" data-aos="fade-up" data-aos-delay="200">
                 <div style="background: white; border-radius: 10px; overflow: hidden; box-shadow: var(--shadow);"
                     data-aos="flip-left" data-aos-delay="300" data-aos-duration="1000">
                     <div
